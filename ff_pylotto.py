@@ -146,11 +146,11 @@ class DhLottery:
 
         # 최종 구매 확인
         self.driver.execute_script("javascript:closepopupLayerConfirm(true);")
-
+        time.sleep(3)
         # 구매 번호 불러옴
         #time.sleep(3)
         #_res1 = self.driver.find_elements(By.XPATH, '//ul[@id="reportRow"]/li')
-        _res1 = WebDriverWait(self.driver, 5).\
+        _res1 = WebDriverWait(self.driver, 10).\
             until(lambda driver: driver.find_elements(By.XPATH, '//ul[@id="reportRow"]/li'))
 
         # 구매된 번호들을 인식
@@ -187,6 +187,7 @@ class DhLottery:
         self.driver.switch_to.default_content()
 
         ret['screen_shot'] = frame_tag.screenshot_as_png
+        time.sleep(3)
         return ret
 
     def driver_quit(self):
