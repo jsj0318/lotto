@@ -137,8 +137,9 @@ class DhLottery:
         if dry:
             #  dry run, 구매 번호 지정된 화면만 캡쳐 후 종료
             tag = self.driver.find_element(By.CLASS_NAME, 'selected-games')
+            time.sleep(5)
             ret['screen_shot'] = tag.screenshot_as_png
-            time.sleep(3)
+            time.sleep(5)
             return ret
 
         # 구매하기 버튼
@@ -146,7 +147,7 @@ class DhLottery:
 
         # 최종 구매 확인
         self.driver.execute_script("javascript:closepopupLayerConfirm(true);")
-        time.sleep(3)
+        time.sleep(10)
         # 구매 번호 불러옴
         #time.sleep(3)
         #_res1 = self.driver.find_elements(By.XPATH, '//ul[@id="reportRow"]/li')
@@ -162,8 +163,9 @@ class DhLottery:
             ret['buy_list'].append(_selected)
 
         tag = self.driver.find_element(By.ID, 'popReceipt')
+        time.sleep(5)
         ret['screen_shot'] = tag.screenshot_as_png 
-        time.sleep(3)
+        time.sleep(5)
         # iframe에서 기본 창으로 다시 변경
         self.driver.switch_to.default_content()
         return ret
@@ -185,9 +187,9 @@ class DhLottery:
                 ret['data'].append(data)
                 ret['count'] += int(data[4])
         self.driver.switch_to.default_content()
-
+        time.sleep(5)
         ret['screen_shot'] = frame_tag.screenshot_as_png
-        time.sleep(3)
+        time.sleep(5)
         return ret
 
     def driver_quit(self):
