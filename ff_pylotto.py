@@ -98,9 +98,9 @@ class DhLottery:
 
         # 로또 구매 페이지로 이동
         self.driver.execute_script('javascript:goLottoBuy(2);')
-
+        time.sleep(10)
         # 생성된 구매 페이지로 전환
-        WebDriverWait(self.driver, 3).until(lambda driver: len(driver.window_handles) > 1)
+        WebDriverWait(self.driver, 30).until(lambda driver: len(driver.window_handles) > 1)
         self.driver.switch_to.window(self.driver.window_handles[1])
 
         try:
@@ -138,6 +138,7 @@ class DhLottery:
             #  dry run, 구매 번호 지정된 화면만 캡쳐 후 종료
             tag = self.driver.find_element(By.CLASS_NAME, 'selected-games')
             ret['screen_shot'] = tag.screenshot_as_png
+            time.sleep(3)
             return ret
 
         # 구매하기 버튼
@@ -162,7 +163,7 @@ class DhLottery:
 
         tag = self.driver.find_element(By.ID, 'popReceipt')
         ret['screen_shot'] = tag.screenshot_as_png 
-
+        time.sleep(3)
         # iframe에서 기본 창으로 다시 변경
         self.driver.switch_to.default_content()
         return ret
