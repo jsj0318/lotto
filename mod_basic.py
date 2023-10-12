@@ -143,12 +143,12 @@ class ModuleBasic(PluginModuleBase):
                     ret['buy'] = lotto.buy_lotto(buy_data, dry=True)
                 else:
                     ret['buy'] = lotto.buy_lotto(buy_data)
-                logger.info(f"ret: {ret}")
+                P.logger.info(f"ret: {ret}")
                 stream = BytesIO(ret['buy']['screen_shot'])
                 img = Image.open(stream)
                 img.save(stream, format='png')
                 ret['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()
-                logger.info(f"screen shot ret: {ret}")
+                P.logger.info(f"screen shot ret: {ret}")
             return ret
         except Exception as e:
             logger.error(f'Exception:{str(e)}')
