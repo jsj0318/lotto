@@ -65,7 +65,7 @@ class ModuleBasic(PluginModuleBase):
                 img.save(filepath)
                 img_url = SupportDiscord.discord_proxy_image_localfile(filepath)
                 msg = '테스트'
-                msg += f"예치금 : {data['deposit']}"
+                msg += f"\n예치금 : {data['deposit']}"
                 msg += f"\n이미 구입 : {data['history']['count']}건 (미추첨)"
                 msg += f"\n가능 : {data['available_count']}건"
                 if 'buy' in data:
