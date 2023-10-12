@@ -58,6 +58,8 @@ class ModuleBasic(PluginModuleBase):
                     ret['modal'] += f"\n회차 : {data['buy']['round']}"
                 ret['title'] = "테스트"
                 ret['data'] = data
+        ret_log = jsonify(ret)
+        P.logger.info(f"ret: {ret_log}")
         return jsonify(ret)
 
     def scheduler_function(self):
@@ -143,12 +145,10 @@ class ModuleBasic(PluginModuleBase):
                     ret['buy'] = lotto.buy_lotto(buy_data, dry=True)
                 else:
                     ret['buy'] = lotto.buy_lotto(buy_data)
-                P.logger.info(f"ret: {ret}")
-                stream = BytesIO(ret['buy']['screen_shot'])
+                P.logger.info(f"ret: {ret}")                
                 img = Image.open(stream)
                 img.save(stream, format='png')
-                ret['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()
-                P.logger.info(f"screen shot ret: {ret}")
+                ret['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()                
             return ret
         except Exception as e:
             logger.error(f'Exception:{str(e)}')
