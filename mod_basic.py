@@ -58,12 +58,8 @@ class ModuleBasic(PluginModuleBase):
                     ret['modal'] += f"\n회차 : {data['buy']['round']}"
                 ret['title'] = "테스트"
                 ret['data'] = data
-            if command == 'test_buy':
-                stream = BytesIO(data['buy']['screen_shot'])
-                img = Image.open(stream)
-                img.save(stream, format='png')
-                data['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()
-                img_bytes = base64.b64decode(data['buy']['screen_shot'])
+            if command == 'test_buy':                
+                img_bytes = base64.b64decode(ret['buy']['screen_shot'])
                 filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")
                 img = Image.open(BytesIO(img_bytes))
                 img.save(filepath)
