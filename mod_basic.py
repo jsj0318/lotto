@@ -60,12 +60,10 @@ class ModuleBasic(PluginModuleBase):
                 ret['data'] = data
             if command == 'test_buy':                
                 img_bytes = base64.b64decode(data['buy']['screen_shot'])
-                filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")
-                P.logger.info(filepath)
+                filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")                
                 img = Image.open(BytesIO(img_bytes))
                 img.save(filepath)
-                img_url = SupportDiscord.discord_proxy_image_localfile(filepath)
-                P.logger.info(img_url)
+                img_url = SupportDiscord.discord_proxy_image_localfile(filepath)                
                 msg = '테스트'
                 msg += f"\n예치금 : {data['deposit']}"
                 msg += f"\n이미 구입 : {data['history']['count']}건 (미추첨)"
