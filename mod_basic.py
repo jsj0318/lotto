@@ -61,6 +61,7 @@ class ModuleBasic(PluginModuleBase):
             if command == 'test_buy':                
                 img_bytes = base64.b64decode(data['buy']['screen_shot'])
                 filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")
+                P.logger.info(filepath)
                 img = Image.open(BytesIO(img_bytes))
                 img.save(filepath)
                 img_url = SupportDiscord.discord_proxy_image_localfile(filepath)
