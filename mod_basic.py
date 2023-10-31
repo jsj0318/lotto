@@ -59,7 +59,7 @@ class ModuleBasic(PluginModuleBase):
                 ret['title'] = "테스트"
                 ret['data'] = data
             if command == 'test_buy':                
-                img_bytes = base64.b64decode(ret['buy']['screen_shot'])
+                img_bytes = base64.b64decode(data['buy']['screen_shot'])
                 filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")
                 img = Image.open(BytesIO(img_bytes))
                 img.save(filepath)
