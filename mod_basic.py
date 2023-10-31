@@ -60,9 +60,9 @@ class ModuleBasic(PluginModuleBase):
                     msg += f"\n예치금 : {data['deposit']}"
                     msg += f"\n이미 구입 : {data['history']['count']}건 (미추첨)"
                     msg += f"\n가능 : {data['available_count']}건"
-                if 'buy' in data:
-                    msg += f"\n회차 : {data['buy']['round']}"
-                ToolNotify.send_message(msg, 'lotto', image_url=img_url)   
+                    if 'buy' in data:
+                        msg += f"\n회차 : {data['buy']['round']}"
+                    ToolNotify.send_message(msg, 'lotto', image_url=img_url)   
             else:
                 ret['modal'] = f"예치금 : {data['deposit']}"
                 ret['modal'] += f"\n이미 구입 : {data['history']['count']}건 (미추첨)"
