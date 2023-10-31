@@ -59,12 +59,16 @@ class ModuleBasic(PluginModuleBase):
                 ret['title'] = "테스트"
                 ret['data'] = data
             if command == 'test_buy':
+                stream = BytesIO(data['buy']['screen_shot'])
+                img = Image.open(stream)
+                img.save(stream, format='png')
+                data['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()
                 img_bytes = base64.b64decode(data['buy']['screen_shot'])
                 filepath = os.path.join(F.config['path_data'], 'tmp', f"proxy_{str(time.time())}.png")
                 img = Image.open(BytesIO(img_bytes))
                 img.save(filepath)
                 img_url = SupportDiscord.discord_proxy_image_localfile(filepath)
-                logger.info(img_url)
+                P.logger.info(img_url)
                 msg = '테스트'
                 msg += f"\n예치금 : {data['deposit']}"
                 msg += f"\n이미 구입 : {data['history']['count']}건 (미추첨)"
@@ -121,8 +125,8 @@ class ModuleBasic(PluginModuleBase):
             if notify:
                 ToolNotify.send_message(msg, 'lotto', image_url=img_url)
         except Exception as e:
-            logger.error(f'Exception:{str(e)}')
-            logger.error(traceback.format_exc())
+            P.logger.error(f'Exception:{str(e)}')
+            P.logger.error(traceback.format_exc())
 
     def do_action(self, mode="buy"):
         try:
@@ -163,8 +167,8 @@ class ModuleBasic(PluginModuleBase):
                 ret['buy']['screen_shot'] = base64.b64encode(stream.getvalue()).decode()
             return ret
         except Exception as e:
-            logger.error(f'Exception:{str(e)}')
-            logger.error(traceback.format_exc())
+            P.logger.error(f'Exception:{str(e)}')
+            P.logger.error(traceback.format_exc())
             ret['status'] = 'fail'
             ret['log'] = str(traceback.format_exc())
         finally:
